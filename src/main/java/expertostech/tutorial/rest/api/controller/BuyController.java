@@ -16,20 +16,20 @@ public class BuyController {
     private BuyRepository buyRepository;
 
     @GetMapping(path = "/api/buy/{id}")
-    public ResponseEntity getById(@PathVariable("id") Integer id) {
+    public ResponseEntity<BuysModel> getById(@PathVariable("id") Integer id) {
         return buyRepository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping(path = "/api/buy/transactions")
-    public ResponseEntity getAll() {
+    public ResponseEntity<Object> getAll() {
         return ResponseEntity.ok().body(buyRepository.findAll());
     }
 
     @GetMapping(path = "/api/buy/sells")
-    public ResponseEntity getAllSells() {
-        ArrayList<BuysModel> sells = new ArrayList<BuysModel>();
+    public ResponseEntity<Object> getAllSells() {
+        ArrayList<BuysModel> sells = new ArrayList<>();
         buyRepository.findAll().forEach(arg -> {
             if(arg.isSell())
                 sells.add(arg);
@@ -38,8 +38,8 @@ public class BuyController {
     }
 
     @GetMapping(path = "/api/buy/buys")
-    public ResponseEntity getAllBuys() {
-        ArrayList<BuysModel> buys = new ArrayList<BuysModel>();
+    public ResponseEntity<Object> getAllBuys() {
+        ArrayList<BuysModel> buys = new ArrayList<>();
         buyRepository.findAll().forEach(arg -> {
             if(arg.isBuy())
                 buys.add(arg);

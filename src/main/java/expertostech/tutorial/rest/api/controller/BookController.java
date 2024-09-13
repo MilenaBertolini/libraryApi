@@ -29,7 +29,7 @@ public class BookController {
     private ClientsRepository clientRepository;
 
     @GetMapping(path = "/api/book/{id}")
-    public ResponseEntity getById(@PathVariable("id") Integer id) {
+    public ResponseEntity<BooksModel> getById(@PathVariable("id") Integer id) {
         return bookRepository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
@@ -50,7 +50,7 @@ public class BookController {
     }
 
     @PostMapping(path = "/api/book/sell")
-    public ResponseEntity sellBooks(@RequestBody Sell sell){
+    public ResponseEntity<Object> sellBooks(@RequestBody Sell sell){
         if(sell.getBuy().getQuantity() < 0){
             return ResponseEntity.badRequest().body("Quantity must be bigger then 0!");
         }
@@ -88,7 +88,7 @@ public class BookController {
     }
 
     @PostMapping(path = "/api/book/buy")
-    public ResponseEntity buyBooks(@RequestBody Buys buy){
+    public ResponseEntity<Object> buyBooks(@RequestBody Buys buy){
         if(buy.getQuantity() < 0){
             return ResponseEntity.badRequest().body("Quantity must be bigger then 0!");
         }

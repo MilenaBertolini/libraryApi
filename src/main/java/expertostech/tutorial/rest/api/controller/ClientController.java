@@ -13,14 +13,14 @@ public class ClientController {
     private ClientsRepository clientRepository;
 
     @GetMapping(path = "/api/clients/{id}")
-    public ResponseEntity getById(@PathVariable("id") Integer id) {
+    public ResponseEntity<ClientsModel> getById(@PathVariable("id") Integer id) {
         return clientRepository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping(path = "/api/clients")
-    public ResponseEntity getAll() {
+    public ResponseEntity<Object> getAll() {
         return ResponseEntity.ok().body(clientRepository.findAll());
     }
 
