@@ -15,7 +15,7 @@ public class ClientController {
     @GetMapping(path = "/api/clients/{id}")
     public ResponseEntity<ClientsModel> getById(@PathVariable("id") Integer id) {
         return clientRepository.findById(id)
-                .map(record -> ResponseEntity.ok().body(record))
+                .map(data -> ResponseEntity.ok().body(data))
                 .orElse(ResponseEntity.notFound().build());
     }
 

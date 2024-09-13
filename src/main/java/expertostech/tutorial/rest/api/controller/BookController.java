@@ -31,7 +31,7 @@ public class BookController {
     @GetMapping(path = "/api/book/{id}")
     public ResponseEntity<BooksModel> getById(@PathVariable("id") Integer id) {
         return bookRepository.findById(id)
-                .map(record -> ResponseEntity.ok().body(record))
+                .map(data -> ResponseEntity.ok().body(data))
                 .orElse(ResponseEntity.notFound().build());
     }
 
